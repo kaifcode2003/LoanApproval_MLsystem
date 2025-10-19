@@ -31,7 +31,7 @@ scikit-learn
 xgboost
 joblib
 streamlit
-warnings
+warnings```
 📁 Dataset
 
 Train Data: train_u6lujuX_CVtuZ9i.csv
