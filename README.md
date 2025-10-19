@@ -31,8 +31,8 @@ scikit-learn
 xgboost
 joblib
 streamlit
-warnings```
-📁 Dataset
+warnings
+## 📁 Dataset
 
 Train Data: train_u6lujuX_CVtuZ9i.csv
 
@@ -42,7 +42,7 @@ Loan_ID, Gender, Married, Dependents, Education, Self_Employed, ApplicantIncome,
 
 Loan_ID and Dependents are dropped during preprocessing.
 
-⚙️ Setup Instructions
+## ⚙️ Setup Instructions
 
 Clone the repository
 
@@ -61,7 +61,7 @@ Run Streamlit app
 
 streamlit run app.py
 
-🧹 Data Preprocessing Steps
+## 🧹 Data Preprocessing Steps
 
 Fill missing categorical values (Gender, Married, Self_Employed) with mode.
 
@@ -75,13 +75,13 @@ Split dataset into X (features) and y (target).
 
 Train-test split (80-20).
 
-📊 Visualization
+## 📊 Visualization
 
 Visualize distribution of categorical features by loan approval using bar charts.
 
 Helps in understanding which factors influence loan approval.
 
-🔧 Model Development
+## 🔧 Model Development
 
 Train multiple models: Logistic Regression, Random Forest, Decision Tree, SVC, XGBoost, GaussianNB.
 
@@ -91,7 +91,7 @@ Evaluate models with accuracy, precision, recall, and select the best performing
 
 Save the final model using joblib.
 
-💻 Sample Code Snippet
+## 💻 Sample Code Snippet
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RandomizedSearchCV
 
@@ -105,7 +105,7 @@ rf_search = RandomizedSearchCV(rf, param_grid, n_iter=20, cv=5, scoring='accurac
 rf_search.fit(X_train, y_train)
 y_pred = rf_search.best_estimator_.predict(X_test)
 
-✅ Model Evaluation
+## ✅ Model Evaluation
 
 Metrics used to evaluate models:
 
@@ -119,14 +119,15 @@ Confusion Matrix
 
 Classification Report
 
-📦 Model Persistence
+## 📦 Model Persistence
 import joblib
 joblib.dump(best_model, "model.pkl")
 model = joblib.load("model.pkl")
 model.predict(X_test)
 
-🌐 Deployment
+## 🌐 Deployment
 
 The application is deployed on Streamlit Cloud.
 
 Users can input applicant data to predict loan approval in real-time.
+## BY: MOHD KAIF
