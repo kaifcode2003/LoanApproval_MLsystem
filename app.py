@@ -46,45 +46,50 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        gender = st.selectbox('Gender', list(gender_map.keys()))
-        education = st.selectbox('Education', list(education_map.keys()))
-        applicant_income = st.number_input('Applicant Income ($)', min_value=0, value=5000)
-        loan_amount = st.number_input('Loan Amount ($)', min_value=0, value=150)
-        credit_history = st.selectbox('Credit History Available?', list(credit_history_map.keys()))
+        gender = st.selectbox('Gender', list(gender_map.keys()), index=None, placeholder="Select gender")
+        education = st.selectbox('Education', list(education_map.keys()), index=None, placeholder="Select education level")
+        applicant_income = st.number_input('Applicant Income ($)', min_value=0, value=None, placeholder="e.g., 5000")
+        loan_amount = st.number_input('Loan Amount ($)', min_value=0, value=None, placeholder="e.g., 150")
+        credit_history = st.selectbox('Credit History Available?', list(credit_history_map.keys()), index=None, placeholder="Select credit history status")
 
     with col2:
-        married = st.selectbox('Married', list(married_map.keys()))
-        self_employed = st.selectbox('Self Employed', list(self_employed_map.keys()))
-        coapplicant_income = st.number_input('Co-applicant Income ($)', min_value=0, value=1600)
-        loan_amount_term = st.number_input('Loan Amount Term (Months)', min_value=12, value=360, step=12)
-        property_area = st.selectbox('Property Area', list(property_area_map.keys()))
+        married = st.selectbox('Married', list(married_map.keys()), index=None, placeholder="Select marital status")
+        self_employed = st.selectbox('Self Employed', list(self_employed_map.keys()), index=None, placeholder="Select employment status")
+        coapplicant_income = st.number_input('Co-applicant Income ($)', min_value=0, value=None, placeholder="e.g., 1600")
+        loan_amount_term = st.number_input('Loan Amount Term (Months)', min_value=12, value=None, placeholder="e.g., 360", step=12)
+        property_area = st.selectbox('Property Area', list(property_area_map.keys()), index=None, placeholder="Select property area")
 
     # --- Preprocess inputs and make prediction ---
     if st.button('Predict Loan Status', type="primary"):
-        # Convert user inputs to the numerical format the model expects
-        gender_num = gender_map[gender]
-        married_num = married_map[married]
-        education_num = education_map[education]
-        self_employed_num = self_employed_map[self_employed]
-        property_area_num = property_area_map[property_area]
-        credit_history_num = credit_history_map[credit_history]
-
-        # Assemble the feature vector in the correct order
-        features = [
-            gender_num, married_num, education_num, self_employed_num,
-            applicant_income, coapplicant_income, loan_amount,
-            loan_amount_term, credit_history_num, property_area_num
-        ]
-
-        # Make a prediction
-        prediction = predict_loan_status(features)
-
-        # Display the result
-        st.write("---")
-        if prediction[0] == 1:
-            st.success('🎉 Congratulations! The loan is likely to be **Approved**.')
+        # Check if all fields are filled
+        if any(v is None for v in [gender, education, applicant_income, loan_amount, credit_history, married, self_employed, coapplicant_income, loan_amount_term, property_area]):
+            st.warning("Please fill in all the details to get a prediction.")
         else:
-            st.error('😞 Unfortunately, the loan is likely to be **Rejected**.')
+            # Convert user inputs to the numerical format the model expects
+            gender_num = gender_map[gender]
+            married_num = married_map[married]
+            education_num = education_map[education]
+            self_employed_num = self_employed_map[self_employed]
+            property_area_num = property_area_map[property_area]
+            credit_history_num = credit_history_map[credit_history]
+
+            # Assemble the feature vector in the correct order
+            features = [
+                gender_num, married_num, education_num, self_employed_num,
+                applicant_income, coapplicant_income, loan_amount,
+                loan_amount_term, credit_history_num, property_area_num
+            ]
+
+            # Make a prediction
+            prediction = predict_loan_status(features)
+
+            # Display the result
+            st.write("---")
+            if prediction[0] == 1:
+                st.success('🎉 Congratulations! The loan is likely to be **Approved**.')
+            else:
+                st.error('😞 Unfortunately, the loan is likely to be **Rejected**.')
 
 if __name__ == '__main__':
     main()
+
