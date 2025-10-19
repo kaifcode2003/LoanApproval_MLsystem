@@ -23,9 +23,7 @@ An end-to-end **Loan Prediction Machine Learning project** that predicts whether
 
 ---
 
-## 📦 Libraries Used
-
-```python
+## 📦 Libraries used
 numpy, pandas, matplotlib, seaborn
 scikit-learn
 xgboost
